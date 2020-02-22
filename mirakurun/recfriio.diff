@@ -1,0 +1,57 @@
+diff -urN recfriio.orig/recfriior5/Hdp.cpp recfriio/recfriior5/Hdp.cpp
+--- recfriio.orig/recfriior5/Hdp.cpp	2020-01-22 13:12:58.274206368 +0900
++++ recfriio/recfriior5/Hdp.cpp	2020-01-22 13:00:56.877109889 +0900
+@@ -271,9 +271,9 @@
+         // 同期
+         size_t pos_sync = pos;
+         while( pos < buffersize && buffer[ pos ] != 0x47 ) ++pos;
+-        if( pos_sync != pos ){
+-            if (log) *log << "sync " << pos - pos_sync << " bytes" << std::endl;
+-        }
++        //if( pos_sync != pos ){
++        //    if (log) *log << "sync " << pos - pos_sync << " bytes" << std::endl;
++        //}
+         if( buffersize - pos < tssize ){
+             buffer_remainsize = buffersize - pos;
+             break;
+@@ -326,7 +326,15 @@
+ 		if (log) *log << "HDP Type: HDP2" << std::endl;
+         	tunerCount = 2;
+ 		return true;
+-	} else {
++        } else if ( TARGET_ID_VENDOR_HDUS == usb_desc.idVendor && TARGET_ID_PRODUCT_HDU2 == usb_desc.idProduct) {
++                if (log) *log << "HDU Type: HDU2" << std::endl;
++                tunerCount = 2;
++                return true;
++        } else if ( TARGET_ID_VENDOR_HDUS == usb_desc.idVendor && TARGET_ID_PRODUCT_QRS == usb_desc.idProduct) {
++                if (log) *log << "QRS Type: UT100" << std::endl;
++                tunerCount = 1;
++                return true;
++        } else {
+ 		return false;
+ 	}
+ }
+diff -urN recfriio.orig/recfriior5/Makefile recfriio/recfriior5/Makefile
+--- recfriio.orig/recfriior5/Makefile	2020-01-22 13:12:58.274206368 +0900
++++ recfriio/recfriior5/Makefile	2020-01-22 12:27:04.431251004 +0900
+@@ -3,7 +3,7 @@
+ HDUS     = -DHDUS
+ UDP      = -DUDP
+ #HTTP     = -DHTTP
+-TSSL     = -DTSSL
++#TSSL     = -DTSSL
+ 
+ ifdef B25
+   B25_PATH = ../arib25
+diff -urN recfriio.orig/recfriior5/setting.hpp recfriio/recfriior5/setting.hpp
+--- recfriio.orig/recfriior5/setting.hpp	2020-01-22 13:12:58.274206368 +0900
++++ recfriio/recfriior5/setting.hpp	2020-01-22 12:27:04.431251004 +0900
+@@ -46,6 +46,8 @@
+ const uint16_t TARGET_ID_PRODUCT_HDU  = 0x6001; // HDUのidProduct
+ const uint16_t TARGET_ID_PRODUCT_HDP  = 0x7010; // HDPのidProduct
+ const uint16_t TARGET_ID_PRODUCT_HDP2 = 0x6111; // HDP2のidProduct
++const uint16_t TARGET_ID_PRODUCT_HDU2 = 0x6091; // HDU2のidProduct
++const uint16_t TARGET_ID_PRODUCT_QRS  = 0x7020; // QRS-UT100のidProduct
+ const uint16_t TARGET_ID_PRODUCT_FS100U = 0x6081; // LDT-FS100UのidProduct
+ #endif
+ 

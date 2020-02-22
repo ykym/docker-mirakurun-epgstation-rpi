@@ -1,0 +1,61 @@
+version: '3'
+services:
+    mirakurun:
+        build:
+            context: mirakurun
+            args:
+                - CPUCORE=2
+        container_name: mirakurun
+        privileged: true
+        ports:
+            - "40772:40772"
+        volumes:
+            - /etc/localtime:/etc/localtime:ro
+            - ./mirakurun/conf:/usr/local/etc/mirakurun
+            - ./mirakurun/db:/usr/local/var/db/mirakurun
+        devices:
+            - /dev/px4video0:/dev/px4video0
+            - /dev/px4video1:/dev/px4video1
+            - /dev/px4video2:/dev/px4video2
+            - /dev/px4video3:/dev/px4video3
+            - /dev/px4video4:/dev/px4video4
+            - /dev/px4video5:/dev/px4video5
+            - /dev/px4video6:/dev/px4video6
+            - /dev/px4video7:/dev/px4video7
+            - /dev/isdb2056video0:/dev/isdb2056video0
+            - /dev/isdb2056video1:/dev/isdb2056video1
+            - /dev/isdb2056video2:/dev/isdb2056video2
+            - /dev/isdb2056video3:/dev/isdb2056video3
+            - /dev/dvb:/dev/dvb
+            - /dev/bus/usb:/dev/bus/usb
+        environment:
+            TZ: "Asia/Tokyo"
+        restart: always
+
+    epgstation:
+        build:
+            context: epgstation
+            args:
+                - CPUCORE=2
+        container_name: epgstation
+        privileged: true
+        volumes:
+            - /etc/passwd:/etc/passwd:ro
+            - /etc/localtime:/etc/localtime:ro
+            - ./epgstation/config:/usr/local/EPGStation/config
+            - ./epgstation/data:/usr/local/EPGStation/data
+            - ./epgstation/thumbnail:/usr/local/EPGStation/thumbnail
+            - ./epgstation/logs:/usr/local/EPGStation/logs
+            #- ./recorded:/usr/local/EPGStation/recorded
+            - /mnt/recorded:/usr/local/EPGStation/recorded
+            - /dev/vchiq:/dev/vchiq
+        environment:
+            TZ: "Asia/Tokyo"
+        links:
+            - mirakurun:mirakurun
+        ports:
+            - "8888:8888"
+            - "8889:8889"
+        user: "1000:1000"
+        restart: always
+

@@ -1,0 +1,7 @@
+logLevel: 2
+
+path: /var/run/mirakurun.sock
+
+port: 40772
+
+highWaterMark: 67108864
