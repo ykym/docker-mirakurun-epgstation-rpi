@@ -52,7 +52,7 @@ echo 'SUBSYSTEM=="vchiq",GROUP="video",MODE="0666"' | sudo tee /etc/udev/rules.d
 echo "options px4_drv xfer_packets=51 urb_max_packets=816 max_urbs=6" | sudo tee /etc/modprobe.d/px4_drv.conf
 ```
 
-### ドライバ用パッケージインストール (例:[px4_drv](https://github.com/nns779/px4_drv))
+### ドライバインストール (例:[px4_drv](https://github.com/nns779/px4_drv))
 ```
 sudo apt -y install raspberrypi-kernel-headers dkms git
 
