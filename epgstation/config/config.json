@@ -143,9 +143,9 @@
                 "ab": "128k"
             },
             {
-                "name": "352x360",
-                "cmd": "%FFMPEG% -dual_mono_mode main %RE% -i pipe:0 -sn -threads 0 -c:v h264_omx -c:a aac -ar 48000 -ac 2 -s 352x360 %VB% %VBUFFER% %AB% %ABUFFER% -filter:v yadif -profile:v baseline -preset veryfast -tune fastdecode,zerolatency -movflags frag_keyframe+empty_moov+faststart+default_base_moof -y -f mp4 pipe:1",
-                "vb": "1500k",
+                "name": "352x240",
+                "cmd": "%FFMPEG% -dual_mono_mode main %RE% -i pipe:0 -sn -threads 0 -c:v h264_omx -c:a aac -ar 48000 -ac 2 -s 352x240 %VB% %VBUFFER% %AB% %ABUFFER% -filter:v yadif -profile:v baseline -preset veryfast -tune fastdecode,zerolatency -movflags frag_keyframe+empty_moov+faststart+default_base_moof -y -f mp4 pipe:1",
+                "vb": "768k",
                 "ab": "128k"
             }
         ],
