@@ -11,8 +11,15 @@
     },
     "ffmpeg": "/usr/bin/ffmpeg",
     "ffprobe": "/usr/bin/ffprobe",
+    "basicAuth": {
+        "user": "***username***",
+        "password": "***password***"
+    },
+    "convertDBStr": "oneByteWithCH",
+    "recordedFormat": "%TITLE%_%YEAR%%MONTH%%DAY%%HOUR%%MIN%_%CHNAME%_%TYPE%",
     "isEnabledDropCheck": true,
     "thumbnailPosition": "200",
+    "recordedHistoryRetentionPeriodDays": "3650",
     "recPriority": "0",
     "excludeServices": [],
     "maxEncode": 1,
