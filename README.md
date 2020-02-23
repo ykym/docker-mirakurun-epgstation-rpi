@@ -93,6 +93,7 @@ cd docker-mirakurun-epgstation-rpi
 mirakurun/libairbb25
 
 sudo docker-compose build
+```
 
 ### 環境に応じて設定ファイル書き換え
 ```
