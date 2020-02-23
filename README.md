@@ -1,4 +1,4 @@
-# docker-mirakurun-epgstation-rpi
+docker-mirakurun-epgstation-rpi
 ====
 
 [Mirakurun](https://github.com/Chinachu/Mirakurun) + [EPGStation](https://github.com/l3tnun/EPGStation) の Raspberry Pi 用 Docker コンテナ
@@ -9,7 +9,9 @@ Raspberry Pi 構築
 
 ### buster lite イメージを SDカードに dd
 https://www.raspberrypi.org/downloads/raspbian/
+
 （デスクトップ環境が欲しかったら with desktop）
+
 boot パーティションのディレクトリに 「ssh」(拡張子なし) のファイルを作っておくと最初から SSH が有効化される
 
 ### 起動
