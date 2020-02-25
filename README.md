@@ -92,7 +92,7 @@ git clone http://github.com/ykym/docker-mirakurun-epgstation-rpi.git
 cd docker-mirakurun-epgstation-rpi
 
 カスタムしてる libaribb25 を使ってる場合は以下を差し替え
-mirakurun/libairbb25
+mirakurun/libaribb25
 
 sudo docker-compose build
 ```
