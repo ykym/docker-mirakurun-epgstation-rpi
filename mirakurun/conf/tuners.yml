@@ -38,6 +38,14 @@
   decoder: arib-b25-stream.sh
   isDisabled: true
 
+- name: PX-S1UD-1
+  types:
+    - GR
+  command: dvbv5-zap -a 0 -c ./config/dvbconf-for-isdb/conf/dvbv5_channels_isdbs.conf -r -P <channel>
+  dvbDevicePath: /dev/dvb/adapter0/dvr0
+  decoder: arib-b25-stream.sh
+  isDisabled: true
+
 - name: KTV-FSUSB2-0
   types:
     - GR

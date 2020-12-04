@@ -9,10 +9,13 @@ services:
         privileged: true
         ports:
             - "40772:40772"
+            - "9229:9229"
         volumes:
             - /etc/localtime:/etc/localtime:ro
             - ./mirakurun/conf:/usr/local/etc/mirakurun
             - ./mirakurun/db:/usr/local/var/db/mirakurun
+        environment:
+            TZ: "Asia/Tokyo"
         devices:
             - /dev/px4video0:/dev/px4video0
             - /dev/px4video1:/dev/px4video1
@@ -28,8 +31,6 @@ services:
             - /dev/isdb2056video3:/dev/isdb2056video3
             - /dev/dvb:/dev/dvb
             - /dev/bus/usb:/dev/bus/usb
-        environment:
-            TZ: "Asia/Tokyo"
         restart: always
 
     epgstation:

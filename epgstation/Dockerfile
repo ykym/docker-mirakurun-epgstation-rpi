@@ -1,4 +1,4 @@
-FROM node:12-buster-slim
+FROM node:14-buster-slim
 EXPOSE 8888
 ARG CPUCORE="1"
 ENV DEV="make gcc git g++ automake curl wget autoconf build-essential python python3 unzip" 
@@ -19,10 +19,7 @@ RUN apt-get update && \
     cd /usr/local/ && \
     git clone https://github.com/l3tnun/EPGStation.git && \
     cd /usr/local/EPGStation && \
-    npm install && \
-\
-# ffmpeg thumbnail option patch
-    sed -i 's/-i %INPUT% -ss ${ thumbnailPosition }/-ss ${ thumbnailPosition } -i %INPUT% -vf yadif=0:-1:1/g' /usr/local/EPGStation/src/server/Model/Operator/Thumbnail/ThumbnailManageModel.ts && \
+    npm install --no-package-lock --no-save && \
 \
     npm run build && \
 \
