@@ -46,13 +46,6 @@
   decoder: arib-b25-stream.sh
   isDisabled: true
 
-- name: KTV-FSUSB2-0
-  types:
-    - GR
-  command: recfsusb2n-k0905 <channel> - -
-  decoder: arib-b25-stream.sh
-  isDisabled: true
-
 - name: mirakurun-remote-S0
   types:
     - BS

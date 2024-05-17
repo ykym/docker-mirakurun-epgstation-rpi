@@ -41,14 +41,14 @@ services:
         container_name: epgstation
         privileged: true
         volumes:
-            - /etc/passwd:/etc/passwd:ro
+        #    - /etc/passwd:/etc/passwd:ro
             - /etc/localtime:/etc/localtime:ro
-            - ./epgstation/config:/usr/local/EPGStation/config
-            - ./epgstation/data:/usr/local/EPGStation/data
-            - ./epgstation/thumbnail:/usr/local/EPGStation/thumbnail
-            - ./epgstation/logs:/usr/local/EPGStation/logs
-            #- ./recorded:/usr/local/EPGStation/recorded
-            - /mnt/recorded:/usr/local/EPGStation/recorded
+            - ./epgstation/config:/app/config
+            - ./epgstation/data:/app/data
+            - ./epgstation/thumbnail:/app/thumbnail
+            - ./epgstation/logs:/app/logs
+        #    - ./recorded:/app/recorded
+            - /mnt/recorded:/app/recorded
             - /dev/vchiq:/dev/vchiq
         environment:
             TZ: "Asia/Tokyo"
@@ -57,6 +57,6 @@ services:
         ports:
             - "8888:8888"
             - "8889:8889"
-        user: "1000:1000"
+        #user: "1000:1000"
         restart: always
 

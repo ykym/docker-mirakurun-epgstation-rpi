@@ -1,23 +1,24 @@
 docker-mirakurun-epgstation-rpi
 ====
 
-[Mirakurun](https://github.com/Chinachu/Mirakurun) + [EPGStation](https://github.com/l3tnun/EPGStation) の Raspberry Pi 用 Docker コンテナ
+[Mirakurun](https://github.com/Chinachu/Mirakurun) v3.8.1 + [EPGStation](https://github.com/l3tnun/EPGStation) v1.7.6 の Raspberry Pi 用 Docker コンテナ
+注意：開発が終了しているバージョンです。個人的に v1 が気に入ってるので構築手順を確立しておく。
 
 ## 構築例
 
 Raspberry Pi 構築
 
-### buster lite イメージを SDカードに dd
+### lite イメージを SDカードに
+Raspberry Pi Imager 等で OS を入れる (SSH有効化しておく)
 https://www.raspberrypi.org/downloads/raspbian/
 
 （デスクトップ環境が欲しかったら with desktop）
 
-boot パーティションのディレクトリに 「ssh」(拡張子なし) のファイルを作っておくと最初から SSH が有効化される
-
 ### 起動
 
-### login
+### login (インストール時に設定したもの)
 ```
+例:
 user: pi
 pass: raspberry
 ```
@@ -67,17 +68,15 @@ unzip -oj pxw3u4_BDA_ver1x64.zip pxw3u4_BDA_ver1x64/PXW3U4.sys
 ./fwtool PXW3U4.sys it930x-firmware.bin
 sudo mkdir -p /lib/firmware
 sudo cp it930x-firmware.bin /lib/firmware/
-cd ../
-sudo cp -a ./ /usr/src/px4_drv-0.2.1
-sudo dkms add px4_drv/0.2.1
-sudo dkms install px4_drv/0.2.1
+cd ../driver
+make
+sudo make install
 cd
 ```
 
 ### install docker
 ```
 curl -sSL https://get.docker.com | sh
-sudo apt -y install docker-compose
 ```
 
 ### 一旦再起動
@@ -91,10 +90,10 @@ cd
 git clone http://github.com/ykym/docker-mirakurun-epgstation-rpi.git
 cd docker-mirakurun-epgstation-rpi
 
-カスタムしてる libaribb25 を使ってる場合は以下を差し替え
+カスタムしてる libaribb25 を使っている場合は以下を差し替え
 mirakurun/libaribb25
 
-sudo docker-compose build
+sudo docker compose build
 ```
 
 ### 環境に応じて設定ファイル書き換え
@@ -115,5 +114,5 @@ sudo mount -a
 
 ### 起動
 ```
-sudo docker-compose up -d
+sudo docker compose up -d
 ```

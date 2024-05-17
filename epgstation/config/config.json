@@ -5,7 +5,7 @@
     "dbType": "sqlite3",
     "sqlite3": {
         "extensions": [
-            "/usr/local/EPGStation/regexp.so"
+            "/app/regexp.so"
         ],
         "regexp": true
     },
@@ -19,17 +19,17 @@
     "encode": [
         {
             "name": "H264",
-            "cmd": "/bin/bash /usr/local/EPGStation/config/enc.sh main",
+            "cmd": "/bin/bash /app/config/enc.sh main",
             "suffix": ".mp4"
         },
         {
             "name": "H264-sub",
-            "cmd": "/bin/bash /usr/local/EPGStation/config/enc.sh sub",
+            "cmd": "/bin/bash /app/config/enc.sh sub",
             "suffix": "-sub.mp4"
         },
         {
             "name": "H264-test",
-            "cmd": "/bin/bash /usr/local/EPGStation/config/enc.sh test",
+            "cmd": "/bin/bash /app/config/enc.sh test",
             "suffix": "-test.mp4"
         }
     ],
@@ -47,15 +47,15 @@
     "mpegTsStreaming": [
         {
             "name": "1280x720",
-            "cmd": "%FFMPEG% -re -dual_mono_mode main -i pipe:0 -sn -c:a aac -ar 48000 -ab 192k -ac 2 -c:v h264_omx -s 1280x720 -vf yadif -preset veryfast -aspect 16:9 -vb 3000k -f mpegts pipe:1"
+            "cmd": "%FFMPEG% -re -dual_mono_mode main -i pipe:0 -sn -c:a aac -ar 48000 -ab 192k -ac 2 -c:v libx264 -s 1280x720 -vf yadif -preset veryfast -aspect 16:9 -vb 3000k -f mpegts pipe:1"
         },
         {
             "name": "720x480",
-            "cmd": "%FFMPEG% -re -dual_mono_mode main -i pipe:0 -sn -c:a aac -ar 48000 -ab 128k -ac 2 -c:v h264_omx -s 720x480 -vf yadif -preset veryfast -aspect 16:9 -vb 1500k -f mpegts pipe:1"
+            "cmd": "%FFMPEG% -re -dual_mono_mode main -i pipe:0 -sn -c:a aac -ar 48000 -ab 128k -ac 2 -c:v libx264 -s 720x480 -vf yadif -preset veryfast -aspect 16:9 -vb 1500k -f mpegts pipe:1"
         },
         {
             "name": "352x480",
-            "cmd": "%FFMPEG% -re -dual_mono_mode main -i pipe:0 -sn -c:a aac -ar 48000 -ab 96k -ac 2 -c:v h264_omx -s 352x480 -vf yadif -preset veryfast -aspect 16:9 -vb 1000k -f mpegts pipe:1"
+            "cmd": "%FFMPEG% -re -dual_mono_mode main -i pipe:0 -sn -c:a aac -ar 48000 -ab 96k -ac 2 -c:v libx264 -s 352x480 -vf yadif -preset veryfast -aspect 16:9 -vb 1000k -f mpegts pipe:1"
         },
         {
             "name": "無変換"
@@ -68,11 +68,11 @@
     "recordedHLS": [
         {
             "name": "1280x720",
-            "cmd": "%FFMPEG% -dual_mono_mode main -i %INPUT% -map 0 -ignore_unknown -max_muxing_queue_size 1024 -sn -f hls -hls_time 3 -hls_list_size 0 -hls_allow_cache 1 -hls_segment_filename %streamFileDir%/stream%streamNum%-%09d.ts -threads auto -c:a aac -ar 48000 -ab 192k -ac 2 -c:v h264_omx -s 1280x720 -preset veryfast -aspect 16:9 -vb 3000k -flags +loop-global_header %OUTPUT%"
+            "cmd": "%FFMPEG% -dual_mono_mode main -i %INPUT% -map 0 -ignore_unknown -max_muxing_queue_size 1024 -sn -f hls -hls_time 3 -hls_list_size 0 -hls_allow_cache 1 -hls_segment_filename %streamFileDir%/stream%streamNum%-%09d.ts -threads auto -c:a aac -ar 48000 -ab 192k -ac 2 -c:v libx264 -s 1280x720 -preset veryfast -aspect 16:9 -vb 3000k -flags +loop-global_header %OUTPUT%"
         },
         {
             "name": "720x480",
-            "cmd": "%FFMPEG% -dual_mono_mode main -i %INPUT% -map 0 -ignore_unknown -max_muxing_queue_size 1024 -sn -f hls -hls_time 3 -hls_list_size 0 -hls_allow_cache 1 -hls_segment_filename %streamFileDir%/stream%streamNum%-%09d.ts -threads auto -c:a aac -ar 48000 -ab 128k -ac 2 -c:v h264_omx -s 720x480 -preset veryfast -aspect 16:9 -vb 1500k -flags +loop-global_header %OUTPUT%"
+            "cmd": "%FFMPEG% -dual_mono_mode main -i %INPUT% -map 0 -ignore_unknown -max_muxing_queue_size 1024 -sn -f hls -hls_time 3 -hls_list_size 0 -hls_allow_cache 1 -hls_segment_filename %streamFileDir%/stream%streamNum%-%09d.ts -threads auto -c:a aac -ar 48000 -ab 128k -ac 2 -c:v libx264 -s 720x480 -preset veryfast -aspect 16:9 -vb 1500k -flags +loop-global_header %OUTPUT%"
         },
         {
             "name": "720x480(h265)",
@@ -82,15 +82,15 @@
     "liveHLS": [
         {
             "name": "1280x720",
-            "cmd": "%FFMPEG% -re -dual_mono_mode main -i pipe:0 -map 0 -ignore_unknown -max_muxing_queue_size 1024 -sn -f hls -hls_time 3 -hls_list_size 17 -hls_allow_cache 1 -hls_segment_filename %streamFileDir%/stream%streamNum%-%09d.ts -threads auto -c:a aac -ar 48000 -ab 192k -ac 2 -c:v h264_omx -s 1280x720 -preset veryfast -aspect 16:9 -vb 3000k -flags +loop-global_header %OUTPUT%"
+            "cmd": "%FFMPEG% -re -dual_mono_mode main -i pipe:0 -map 0 -ignore_unknown -max_muxing_queue_size 1024 -sn -f hls -hls_time 3 -hls_list_size 17 -hls_allow_cache 1 -hls_segment_filename %streamFileDir%/stream%streamNum%-%09d.ts -threads auto -c:a aac -ar 48000 -ab 192k -ac 2 -c:v libx264 -s 1280x720 -preset veryfast -aspect 16:9 -vb 3000k -flags +loop-global_header %OUTPUT%"
         },
         {
             "name": "720x480",
-            "cmd": "%FFMPEG% -re -dual_mono_mode main -i pipe:0 -map 0 -ignore_unknown -max_muxing_queue_size 1024 -sn -f hls -hls_time 3 -hls_list_size 17 -hls_allow_cache 1 -hls_segment_filename %streamFileDir%/stream%streamNum%-%09d.ts -threads auto -c:a aac -ar 48000 -ab 128k -ac 2 -c:v h264_omx -s 720x480 -preset veryfast -aspect 16:9 -vb 1500k -flags +loop-global_header %OUTPUT%"
+            "cmd": "%FFMPEG% -re -dual_mono_mode main -i pipe:0 -map 0 -ignore_unknown -max_muxing_queue_size 1024 -sn -f hls -hls_time 3 -hls_list_size 17 -hls_allow_cache 1 -hls_segment_filename %streamFileDir%/stream%streamNum%-%09d.ts -threads auto -c:a aac -ar 48000 -ab 128k -ac 2 -c:v libx264 -s 720x480 -preset veryfast -aspect 16:9 -vb 1500k -flags +loop-global_header %OUTPUT%"
         },
         {
             "name": "320x180",
-            "cmd": "%FFMPEG% -re -dual_mono_mode main -i pipe:0 -map 0 -ignore_unknown -max_muxing_queue_size 1024 -sn -f hls -hls_time 3 -hls_list_size 17 -hls_allow_cache 1 -hls_segment_filename %streamFileDir%/stream%streamNum%-%09d.ts -threads auto -c:a aac -ar 48000 -ab 48k -ac 2 -c:v h264_omx -s 320x180 -preset veryfast -aspect 16:9 -vb 100k -maxrate 110k -bufsize 1000k -flags +loop-global_header %OUTPUT%"
+            "cmd": "%FFMPEG% -re -dual_mono_mode main -i pipe:0 -map 0 -ignore_unknown -max_muxing_queue_size 1024 -sn -f hls -hls_time 3 -hls_list_size 17 -hls_allow_cache 1 -hls_segment_filename %streamFileDir%/stream%streamNum%-%09d.ts -threads auto -c:a aac -ar 48000 -ab 48k -ac 2 -c:v libx264 -s 320x180 -preset veryfast -aspect 16:9 -vb 100k -maxrate 110k -bufsize 1000k -flags +loop-global_header %OUTPUT%"
         }
     ],
     "liveWebM": [
@@ -106,11 +106,11 @@
     "liveMP4": [
         {
             "name": "1280x720",
-            "cmd": "%FFMPEG% -dual_mono_mode main -re -i pipe:0 -sn -threads 0 -c:a aac -ar 48000 -ac 2 -ab 192k -c:v h264_omx -s 1280x720 -vb 3000k -filter:v yadif -profile:v baseline -preset veryfast -tune fastdecode,zerolatency -movflags frag_keyframe+empty_moov+faststart+default_base_moof -y -f mp4 pipe:1"
+            "cmd": "%FFMPEG% -dual_mono_mode main -re -i pipe:0 -sn -threads 0 -c:a aac -ar 48000 -ac 2 -ab 192k -c:v libx264 -s 1280x720 -vb 3000k -filter:v yadif -profile:v baseline -preset veryfast -tune fastdecode,zerolatency -movflags frag_keyframe+empty_moov+faststart+default_base_moof -y -f mp4 pipe:1"
         },
         {
             "name": "720x480",
-            "cmd": "%FFMPEG% -dual_mono_mode main -re -i pipe:0 -sn -threads 0 -c:a aac -ar 48000 -ac 2 -ab 128k -c:v h264_omx -s 720x480 -vb 1500k -filter:v yadif -profile:v baseline -preset veryfast -tune fastdecode,zerolatency -movflags frag_keyframe+empty_moov+faststart+default_base_moof -y -f mp4 pipe:1"
+            "cmd": "%FFMPEG% -dual_mono_mode main -re -i pipe:0 -sn -threads 0 -c:a aac -ar 48000 -ac 2 -ab 128k -c:v libx264 -s 720x480 -vb 1500k -filter:v yadif -profile:v baseline -preset veryfast -tune fastdecode,zerolatency -movflags frag_keyframe+empty_moov+faststart+default_base_moof -y -f mp4 pipe:1"
         }
     ],
 
@@ -132,19 +132,19 @@
         "mp4": [
             {
                 "name": "1280x720",
-                "cmd": "%FFMPEG% -dual_mono_mode main %RE% -i pipe:0 -sn -threads 0 -c:v h264_omx -c:a aac -ar 48000 -ac 2 -s 1280x720 %VB% %VBUFFER% %AB% %ABUFFER% -filter:v yadif -profile:v baseline -preset veryfast -tune fastdecode,zerolatency -movflags frag_keyframe+empty_moov+faststart+default_base_moof -y -f mp4 pipe:1",
+                "cmd": "%FFMPEG% -dual_mono_mode main %RE% -i pipe:0 -sn -threads 0 -c:v libx264 -c:a aac -ar 48000 -ac 2 -s 1280x720 %VB% %VBUFFER% %AB% %ABUFFER% -filter:v yadif -profile:v baseline -preset veryfast -tune fastdecode,zerolatency -movflags frag_keyframe+empty_moov+faststart+default_base_moof -y -f mp4 pipe:1",
                 "vb": "3000k",
                 "ab": "192k"
             },
             {
                 "name": "640x360",
-                "cmd": "%FFMPEG% -dual_mono_mode main %RE% -i pipe:0 -sn -threads 0 -c:v h264_omx -c:a aac -ar 48000 -ac 2 -s 640x360 %VB% %VBUFFER% %AB% %ABUFFER% -filter:v yadif -profile:v baseline -preset veryfast -tune fastdecode,zerolatency -movflags frag_keyframe+empty_moov+faststart+default_base_moof -y -f mp4 pipe:1",
+                "cmd": "%FFMPEG% -dual_mono_mode main %RE% -i pipe:0 -sn -threads 0 -c:v libx264 -c:a aac -ar 48000 -ac 2 -s 640x360 %VB% %VBUFFER% %AB% %ABUFFER% -filter:v yadif -profile:v baseline -preset veryfast -tune fastdecode,zerolatency -movflags frag_keyframe+empty_moov+faststart+default_base_moof -y -f mp4 pipe:1",
                 "vb": "1500k",
                 "ab": "128k"
             },
             {
                 "name": "352x240",
-                "cmd": "%FFMPEG% -dual_mono_mode main %RE% -i pipe:0 -sn -threads 0 -c:v h264_omx -c:a aac -ar 48000 -ac 2 -s 352x240 %VB% %VBUFFER% %AB% %ABUFFER% -filter:v yadif -profile:v baseline -preset veryfast -tune fastdecode,zerolatency -movflags frag_keyframe+empty_moov+faststart+default_base_moof -y -f mp4 pipe:1",
+                "cmd": "%FFMPEG% -dual_mono_mode main %RE% -i pipe:0 -sn -threads 0 -c:v libx264 -c:a aac -ar 48000 -ac 2 -s 352x240 %VB% %VBUFFER% %AB% %ABUFFER% -filter:v yadif -profile:v baseline -preset veryfast -tune fastdecode,zerolatency -movflags frag_keyframe+empty_moov+faststart+default_base_moof -y -f mp4 pipe:1",
                 "vb": "768k",
                 "ab": "128k"
             }
@@ -152,13 +152,13 @@
         "mpegTs": [
             {
                 "name": "1280x720 (H.264)",
-                "cmd": "%FFMPEG% -dual_mono_mode main %RE% -i pipe:0 -sn -threads 0 -filter:v yadif -c:v h264_omx -c:a aac -ar 48000 -ac 2 -s 1280x720 %VB% %VBUFFER% %AB% %ABUFFER% -profile:v baseline -preset veryfast -tune fastdecode,zerolatency -y -f mpegts pipe:1",
+                "cmd": "%FFMPEG% -dual_mono_mode main %RE% -i pipe:0 -sn -threads 0 -filter:v yadif -c:v libx264 -c:a aac -ar 48000 -ac 2 -s 1280x720 %VB% %VBUFFER% %AB% %ABUFFER% -profile:v baseline -preset veryfast -tune fastdecode,zerolatency -y -f mpegts pipe:1",
                 "vb": "3000k",
                 "ab": "192k"
             },
             {
                 "name": "640x360 (H.264)",
-                "cmd": "%FFMPEG% -dual_mono_mode main %RE% -i pipe:0 -sn -threads 0 -filter:v yadif -c:v h264_omx -c:a aac -ar 48000 -ac 2 -s 640x360 %VB% %VBUFFER% %AB% %ABUFFER% -profile:v baseline -preset veryfast -tune fastdecode,zerolatency -y -f mpegts pipe:1",
+                "cmd": "%FFMPEG% -dual_mono_mode main %RE% -i pipe:0 -sn -threads 0 -filter:v yadif -c:v libx264 -c:a aac -ar 48000 -ac 2 -s 640x360 %VB% %VBUFFER% %AB% %ABUFFER% -profile:v baseline -preset veryfast -tune fastdecode,zerolatency -y -f mpegts pipe:1",
                 "vb": "1500k",
                 "ab": "128k"
             }
