@@ -2,6 +2,7 @@ docker-mirakurun-epgstation-rpi
 ====
 
 [Mirakurun](https://github.com/Chinachu/Mirakurun) v3.8.1 + [EPGStation](https://github.com/l3tnun/EPGStation) v1.7.6 の Raspberry Pi 用 Docker コンテナ
+
 注意：開発が終了しているバージョンです。個人的に v1 が気に入ってるので構築手順を確立しておく。
 
 ## 構築例
@@ -9,7 +10,9 @@ docker-mirakurun-epgstation-rpi
 Raspberry Pi 構築
 
 ### lite イメージを SDカードに
+
 Raspberry Pi Imager 等で OS を入れる (SSH有効化しておく)
+
 https://www.raspberrypi.org/downloads/raspbian/
 
 （デスクトップ環境が欲しかったら with desktop）
@@ -24,6 +27,8 @@ pass: raspberry
 ```
 
 ### IPを固定する場合
+
+/etc/dhcpcd.conf があるOSのサンプル
 ```
 sudo vi /etc/dhcpcd.conf
 
@@ -36,6 +41,13 @@ sudo vi /etc/dhcpcd.conf
 #static domain_name_servers=192.168.0.1 8.8.8.8 fd51:42f8:caae:d92e::1
 
 面倒ならDHCPサーバ側で固定振り
+```
+
+NetworkManager (nmcli) の場合のサンプル
+```
+sudo nmcli connection modify 'Wired connection 1' ipv4.method manual ipv4.addresses 192.168.0.100/24 ipv4.gateway 192.168.0.1 ipv4.dns 192.168.0.1
+sudo nmcli connection reload
+sudo nmcli connection up 'Wired connection 1'
 ```
 
 ### 初期設定
@@ -52,14 +64,21 @@ sudo localectl set-locale 'LANG=ja_JP.utf8'
 sudo sed -i 's/$/ coherent_pool=4M dwc_otg.host_rx_fifo_size=2048/' /boot/cmdline.txt
 sudo sed -i 's/^CONF_SWAPSIZE=100/CONF_SWAPSIZE=1024/' /etc/dphys-swapfile
 echo 'SUBSYSTEM=="vchiq",GROUP="video",MODE="0666"' | sudo tee /etc/udev/rules.d/10-vchiq-permissions.rules
+echo 'SUBSYSTEM=="video*",GROUP="video",MODE="0666"' | sudo tee /etc/udev/rules.d/10-v4l2-permissions.rules
 echo "options px4_drv xfer_packets=51 urb_max_packets=816 max_urbs=6" | sudo tee /etc/modprobe.d/px4_drv.conf
+```
+
+### 一旦再起動
+```
+sudo reboot
 ```
 
 ### ドライバインストール (例:[px4_drv](https://github.com/nns779/px4_drv))
 ```
 sudo apt -y install raspberrypi-kernel-headers dkms git
 
-git clone https://github.com/nns779/px4_drv.git
+~~git clone https://github.com/nns779/px4_drv.git~~
+git clone https://github.com/tsukumijima/px4_drv.git
 cd px4_drv
 cd fwtool
 make
@@ -104,7 +123,7 @@ vi mirakurun/conf/channels.yml
 vi docker-compose.yml
 ```
 
-### 録画領域がローカル以外ならマウントさせる
+### 録画領域がローカル以外ならマウントさせる 例
 ```
 sudo mkdir /mnt/recorded
 sudo vi /etc/fstab
