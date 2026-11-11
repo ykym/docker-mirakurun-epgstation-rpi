@@ -76,15 +76,15 @@
   channel: BS03_0
   serviceId: 191
   isDisabled: false
-- name: ＮＨＫＢＳプレミアム
+- name: ＢＳアニマックス
   type: BS
   channel: BS03_1
-  serviceId: 103
+  serviceId: 236
   isDisabled: false
-- name: ＮＨＫＢＳプレミアム
+- name: ＢＳ釣りビジョン
   type: BS
-  channel: BS03_1
-  serviceId: 104
+  channel: BS03_2
+  serviceId: 251
   isDisabled: false
 - name: ＷＯＷＯＷライブ
   type: BS
@@ -101,11 +101,6 @@
   channel: BS09_0
   serviceId: 211
   isDisabled: false
-- name: スターチャンネル１
-  type: BS
-  channel: BS09_1
-  serviceId: 200
-  isDisabled: false
 - name: ＢＳ１２トゥエルビ
   type: BS
   channel: BS09_2
@@ -113,18 +108,13 @@
   isDisabled: false
 - name: 放送大学ｅｘ
   type: BS
-  channel: BS11_0
+  channel: BS13_2
   serviceId: 231
   isDisabled: false
 - name: 放送大学ｏｎ
   type: BS
-  channel: BS11_0
+  channel: BS13_2
   serviceId: 232
-  isDisabled: false
-- name: ＢＳ釣りビジョン
-  type: BS
-  channel: BS11_1
-  serviceId: 251
   isDisabled: false
 - name: ＢＳ日テレ
   type: BS
@@ -156,11 +146,6 @@
   channel: BS13_1
   serviceId: 183
   isDisabled: false
-- name: ＢＳアニマックス
-  type: BS
-  channel: BS13_2
-  serviceId: 236
-  isDisabled: false
 - name: ＮＨＫＢＳ１
   type: BS
   channel: BS15_0
@@ -171,15 +156,10 @@
   channel: BS15_0
   serviceId: 102
   isDisabled: false
-- name: スターチャンネル２
+- name: ＢＳ１０
   type: BS
-  channel: BS15_1
-  serviceId: 201
-  isDisabled: false
-- name: スターチャンネル３
-  type: BS
-  channel: BS15_1
-  serviceId: 202
+  channel: BS15_2
+  serviceId: 200
   isDisabled: false
 - name: Ｊ　ＳＰＯＲＴＳ　４
   type: BS
